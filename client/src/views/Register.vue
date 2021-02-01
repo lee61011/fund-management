@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-01-31 16:43:14
- * @LastEditTime: 2021-01-31 18:05:22
+ * @LastEditTime: 2021-02-01 20:32:58
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\views\Register.vue
@@ -39,13 +39,49 @@ export default {
   name: 'register',
   components: {},
   data() {
+    var validatePass2 = (rule, value, callback) => {
+      if (value !== this.registerUser.password) {
+        callback(new Error('两次输入密码不一致!'));
+      } else {
+        callback();
+      }
+    };
     return {
       registerUser: {
         name: '',
         email: '',
         password: '',
         password2: ''
+      },
+      rules: {
+        name: [
+          { required: true, message: '姓名不能为空', trigger: 'blur' },
+          { min: 2, max: 5, message: '长度在 2 到 5 个字符', trigger: 'blur' }
+        ],
+        email: [
+          { type: 'email', required: true, message: '邮箱格式不正确', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '密码不能为空', trigger: 'blur' },
+          { min: 6, max: 18, message: '长度在6到18位', trigger: 'blur' },
+        ],
+        password2: [
+          { required: true, message: '密码不能为空', trigger: 'blur' },
+          { validator: validatePass2, trigger: 'blur' }
+        ],
       }
+    }
+  },
+  methods: {
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // 注册接口
+          // TODO 注册接口加载中效果 && 注册成功提示消息
+        } else {
+          return false;
+        }
+      });
     }
   }
 }
