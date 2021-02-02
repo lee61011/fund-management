@@ -1,7 +1,7 @@
 /*
  * @Author: **
  * @Date: 2021-02-01 20:37:22
- * @LastEditTime: 2021-02-01 20:37:40
+ * @LastEditTime: 2021-02-02 16:51:01
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\http\index.js
@@ -40,4 +40,3 @@ axios.interceptors.response.use(function (response) {
 })
 
 axios.defaults.baseURL = '/nvr/api'
-

@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-01-31 16:05:21
- * @LastEditTime: 2021-01-31 18:00:52
+ * @LastEditTime: 2021-02-02 16:39:22
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\App.vue
@@ -12,6 +12,34 @@
     <router-view/>
   </div>
 </template>
+
+<script>
+import jwt_decode from 'jwt-decode'
+
+export default {
+  name: 'app',
+  components: {},
+  created() {
+    const token = sessionStorage.getItem('token')
+    if (token) {
+      const decoded = jwt_decode(token)
+      console.log(decoded)
+      this.$store.dispatch('setAuthenticated', !this.isEmpty(decoded))
+      this.$store.dispatch('setUser', decoded)
+    }
+  },
+  methods: {
+    isEmpty(value) {
+      return (
+        value === undefined ||
+        value === null ||
+        (typeof value === 'object' && Object.keys(value).length === 0) ||
+        (typeof value === 'string' && value.trim().length === 0)
+      )
+    }
+  }
+}
+</script>
 
 <style>
 html,

@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-01-31 16:43:14
- * @LastEditTime: 2021-02-01 20:32:58
+ * @LastEditTime: 2021-02-02 17:30:42
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\views\Register.vue
@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import { userRegister } from '@/http/login/login'
+
 export default {
   name: 'register',
   components: {},
@@ -78,6 +80,25 @@ export default {
         if (valid) {
           // 注册接口
           // TODO 注册接口加载中效果 && 注册成功提示消息
+          const params = {
+            email: this.registerUser.email,
+            name: this.registerUser.name,
+            password: this.registerUser.password
+          }
+          userRegister(params)
+            .then(res => {
+              res = res.data
+              console.log(res)
+              if (res.code !== 0) {
+                this.$message.error(res.message)
+                return
+              }
+              this.$message.success('注册成功！')
+              this.$router.push('/login')
+            })
+            .catch(err => {
+              console.log(err)
+            })
         } else {
           return false;
         }
