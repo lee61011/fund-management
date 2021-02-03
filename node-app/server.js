@@ -1,10 +1,10 @@
 /*
  * @Author: **
  * @Date: 2021-01-23 16:27:20
- * @LastEditTime: 2021-01-29 09:07:09
+ * @LastEditTime: 2021-02-03 18:01:30
  * @LastEditors: **
  * @Description: 
- * @FilePath: \node-app\server.js
+ * @FilePath: \fund-management\node-app\server.js
  */
 const express = require('express')
 const mongoose = require('mongoose')
@@ -14,6 +14,7 @@ const app = express()
 
 const users = require('./routes/api/users')
 const profiles = require('./routes/api/profiles')
+const approve = require('./routes/api/approve')
 
 const db = require('./config/keys').mongoURI
 
@@ -36,6 +37,7 @@ require('./config/passport')(passport)
 // 使用Routes
 app.use('/api/users', users)
 app.use('/api/profiles', profiles)
+app.use('/api/approve', approve)
 
 const port = process.env.PORT || 5000
 

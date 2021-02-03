@@ -1,7 +1,7 @@
 /*
  * @Author: **
  * @Date: 2021-01-24 13:53:24
- * @LastEditTime: 2021-02-02 17:29:42
+ * @LastEditTime: 2021-02-03 14:18:08
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\node-app\routes\api\users.js
@@ -81,6 +81,9 @@ router.post('/login', (req, res) => {
     })
 })
 
+/*
+  获取当前登录用户信息
+*/
 router.get('/current', passport.authenticate('jwt', {session: false}), (req, res) => {
   res.json({
     code: 0,
@@ -90,6 +93,65 @@ router.get('/current', passport.authenticate('jwt', {session: false}), (req, res
       email: req.user.email,
       role: req.user.role
     }
+  })
+})
+
+/*
+  修改密码
+*/
+router.put('/userpasswd/:id', passport.authenticate('jwt', {session: false}), async (req, res) => {
+  const id = req.params.id
+  const newpwd = req.body.newpasswd
+  try {
+    let isMatch = await bcrypt.compare(req.body.passwd, req.user.password)
+    if (!isMatch) return res.status(200).json({code: 1, message: '原密码错误！'})
+    bcrypt.genSalt(10, function(err, salt) {
+      bcrypt.hash(newpwd, salt, (err, hash) => {
+        if (err) throw err
+        User.findByIdAndUpdate(id, {$set: {password: hash}}, {new: true}, (err, user) => {
+          if (err) {
+            return res.status(500).json(err)
+          }
+          res.json({code: 0, message: '密码修改成功！'})
+        })
+      })
+    })
+  } catch(err) {
+    res.status(500).json(err)
+  }
+})
+
+/*
+  获取人员列表
+*/
+router.get('/list', passport.authenticate('jwt', {session: false}), (req, res) => {
+  User.find()
+    .then(users => {
+      if (!users) {
+        return res.status(404).json('没有任何内容')
+      }
+      res.json({
+        code: 0, 
+        data: users.map(item => ({
+          id: item._id,
+          role: item.role,
+          name: item.name,
+          email: item.email
+        }))
+      })
+    })
+})
+
+/*
+  编辑用户角色(仅管理员角色可编辑)
+*/
+router.put('/edit/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+  if (req.user.role !== '管理员') return res.json({code: 1, message: '仅管理员角色可编辑！'})
+  User.findByIdAndUpdate(req.params.id, {$set: {role: req.body.role}}, {new: true}, (err, user) => {
+    if (err) {
+      return res.status(500).json(err)
+    }
+    res.json({code: 0, message: '角色编辑成功！'})
   })
 })
 

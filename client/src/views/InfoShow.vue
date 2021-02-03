@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-02-02 19:47:07
- * @LastEditTime: 2021-02-02 19:57:26
+ * @LastEditTime: 2021-02-03 16:36:02
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\views\InfoShow.vue
@@ -33,7 +33,7 @@
 <script>
 
 export default {
-  name: 'home' ,
+  name: 'infoshow',
   components: {},
   computed: {
     user() {

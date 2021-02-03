@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-02-02 19:59:38
- * @LastEditTime: 2021-02-02 20:29:08
+ * @LastEditTime: 2021-02-03 17:00:00
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\components\LeftMenu.vue
@@ -22,7 +22,7 @@
           <template v-for="item in items">
             <el-submenu v-if="item.children" :index="item.path" :key="item.path">
               <template>
-                <i :class="'fa fa-margin '" + item.icon></i>
+                <!-- <i :class="'fa fa-margin '" + item.icon></i> -->
                 <span slot="title">{{ item.name }}</span>
               </template>
               <router-link v-for="(citem, cindex) in item.children" :to="citem.path" :key="cindex">
@@ -50,7 +50,7 @@ export default {
           name: '审批管理',
           path: 'fund',
           children: [
-            {path: 'fundlist', name: '资金流水'}
+            {path: 'fundlist', name: '单据管理'}
           ]
         },
         {
@@ -69,6 +69,19 @@ export default {
       return this.$store.getters.user
     }
   },
+  created() {
+    if (this.user.role === '系统管理员') {
+      this.items.push({
+        icon: 'fa-asterisk',
+        name: '系统管理',
+        path: 'system',
+        children: [
+          {path: 'infoshow', name: '审批流程管理'},
+          {path: 'infoshow', name: '用户信息管理'}
+        ]
+      })
+    }
+  },
   methods: {
     
   }
@@ -76,5 +89,35 @@ export default {
 </script>
 
 <style scoped>
-
+.menu_page {
+  position: fixed;
+  top: 71px;
+  left: 0;
+  min-height: 100%;
+  background-color: #324057;
+  z-index: 99;
+}
+.el-menu {
+  border: none;
+}
+.fa-margin {
+  margin-right: 5px;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 180px;
+  min-height: 400px;
+}
+.el-menu-vertical-demo {
+  width: 35px;
+}
+.el-submenu .el-menu-item {
+  min-width: 180px;
+}
+.hiddenDropdown,
+.hiddenDropname {
+  display: none;
+}
+a {
+  text-decoration: none;
+}
 </style>
