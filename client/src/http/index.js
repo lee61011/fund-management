@@ -1,13 +1,13 @@
 /*
  * @Author: **
  * @Date: 2021-02-01 20:37:22
- * @LastEditTime: 2021-02-02 16:51:01
+ * @LastEditTime: 2021-02-04 14:10:55
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\http\index.js
  */
 import axios from 'axios'
-import router from '../router/router'
+import router from '../router'
 
 axios.interceptors.request.use(function (config) {
   // 在发送请求之前做些什么
@@ -39,4 +39,4 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject(error.response)
 })
 
-axios.defaults.baseURL = '/nvr/api'
+axios.defaults.baseURL = '/api'

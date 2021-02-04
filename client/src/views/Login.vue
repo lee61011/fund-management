@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-02-02 14:33:02
- * @LastEditTime: 2021-02-02 17:20:19
+ * @LastEditTime: 2021-02-04 13:38:11
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\views\Login.vue
@@ -74,7 +74,6 @@ export default {
               sessionStorage.setItem('token', token)
               // 解析token
               const decoded = jwt_decode(token)
-              console.log('decoded --------- ', decoded)
               this.$store.dispatch('setAuthenticated', !this.isEmpty(decoded))
               this.$store.dispatch('setUser', decoded)
               this.$router.push('/index')

@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-01-31 16:05:21
- * @LastEditTime: 2021-02-02 16:39:22
+ * @LastEditTime: 2021-02-04 16:31:55
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\App.vue
@@ -48,7 +48,6 @@ body,
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   width: 100%;
   height: 100%;

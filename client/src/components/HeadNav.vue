@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-02-02 17:36:10
- * @LastEditTime: 2021-02-03 16:42:30
+ * @LastEditTime: 2021-02-04 11:32:32
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\components\HeadNav.vue
@@ -15,11 +15,13 @@
       </el-col>
       <el-col :span="6" class="user-container">
         <div class="userinfo">
-          <img src="" class="avatar" alt="">
-          <div class="welcome">
+          <div class="avatar">
+            <img src="../assets/avatar.gif" alt="">
+          </div>
+          <!-- <div class="welcome">
             <p class="name comename">欢迎</p>
             <p class="name avatarname">{{ user.name }}</p>
-          </div>
+          </div> -->
           <span class="username">
              <el-dropdown trigger="click" @command="setDialogInfo">
               <span class="el-dropdown-link">
@@ -105,16 +107,25 @@ export default {
 .avatar {
   width: 40px;
   height: 40px;
+  line-height: 40px;
+  text-align: center;
   border-radius: 50%;
   vertical-align: middle;
   display: inline-block;
+  background: #409EFF;
 }
-.welcome {
+.avatar img {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+/* .welcome {
   display: inline-block;
   width: auto;
   vertical-align: middle;
   padding: 0 5px;
-}
+} */
 .name {
   line-height: 20px;
   text-align: center;

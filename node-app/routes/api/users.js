@@ -1,7 +1,7 @@
 /*
  * @Author: **
  * @Date: 2021-01-24 13:53:24
- * @LastEditTime: 2021-02-03 14:18:08
+ * @LastEditTime: 2021-02-04 14:23:51
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\node-app\routes\api\users.js
@@ -136,7 +136,8 @@ router.get('/list', passport.authenticate('jwt', {session: false}), (req, res) =
           id: item._id,
           role: item.role,
           name: item.name,
-          email: item.email
+          email: item.email,
+          date: item.date
         }))
       })
     })

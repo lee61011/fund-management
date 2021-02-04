@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-02-02 19:59:38
- * @LastEditTime: 2021-02-03 17:00:00
+ * @LastEditTime: 2021-02-04 18:00:57
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\components\LeftMenu.vue
@@ -70,14 +70,14 @@ export default {
     }
   },
   created() {
-    if (this.user.role === '系统管理员') {
+    if (this.user.role === '管理员') {
       this.items.push({
         icon: 'fa-asterisk',
         name: '系统管理',
         path: 'system',
         children: [
           {path: 'infoshow', name: '审批流程管理'},
-          {path: 'infoshow', name: '用户信息管理'}
+          {path: 'usermanage', name: '用户信息管理'}
         ]
       })
     }
