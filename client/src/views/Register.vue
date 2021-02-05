@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-01-31 16:43:14
- * @LastEditTime: 2021-02-02 17:30:42
+ * @LastEditTime: 2021-02-05 19:28:46
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\views\Register.vue
@@ -36,6 +36,7 @@
 
 <script>
 import { userRegister } from '@/http/login/login'
+import Crypto from '@/assets/utils/cryptoAES'
 
 export default {
   name: 'register',
@@ -79,11 +80,11 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // 注册接口
-          // TODO 注册接口加载中效果 && 注册成功提示消息
           const params = {
             email: this.registerUser.email,
             name: this.registerUser.name,
-            password: this.registerUser.password
+            // password: this.registerUser.password
+            password: Crypto.encrypt(Crypto.encode(this.registerUser.password))
           }
           userRegister(params)
             .then(res => {

@@ -1,7 +1,7 @@
 /*
  * @Author: **
  * @Date: 2021-02-01 20:39:25
- * @LastEditTime: 2021-02-04 14:11:25
+ * @LastEditTime: 2021-02-05 14:40:51
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\http\login\login.js
@@ -18,3 +18,5 @@ export const getCurrent = params => axios.get('/users/current')
 export const getUserList = params => axios.get('/users/list')
 // 修改用户角色
 export const putUserRole = params => axios.put(`/users/edit/${params.id}`, params.data)
+// 修改密码
+export const putUserPass = (uid, params) => axios.put(`/users/userpasswd/${uid}`, params)

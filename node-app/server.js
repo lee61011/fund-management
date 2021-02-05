@@ -1,7 +1,7 @@
 /*
  * @Author: **
  * @Date: 2021-01-23 16:27:20
- * @LastEditTime: 2021-02-03 18:01:30
+ * @LastEditTime: 2021-02-05 11:05:07
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\node-app\server.js
@@ -15,6 +15,7 @@ const app = express()
 const users = require('./routes/api/users')
 const profiles = require('./routes/api/profiles')
 const approve = require('./routes/api/approve')
+const flowdefined = require('./routes/api/flowdefined')
 
 const db = require('./config/keys').mongoURI
 
@@ -38,6 +39,7 @@ require('./config/passport')(passport)
 app.use('/api/users', users)
 app.use('/api/profiles', profiles)
 app.use('/api/approve', approve)
+app.use('/api/flowdefined', flowdefined)
 
 const port = process.env.PORT || 5000
 

@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-02-02 14:33:02
- * @LastEditTime: 2021-02-04 13:38:11
+ * @LastEditTime: 2021-02-05 15:08:10
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\views\Login.vue
@@ -33,6 +33,7 @@
 <script>
 import { userLogin } from '@/http/login/login.js'
 import jwt_decode from 'jwt-decode'
+import Crypto from '@/assets/utils/cryptoAES'
 
 export default {
   name: 'login',
@@ -61,7 +62,8 @@ export default {
           // 登录接口
           let params = {
             email: this.loginUser.email,
-            password: this.loginUser.password
+            // password: this.loginUser.password
+            password: Crypto.encrypt(Crypto.encode(this.loginUser.password))
           }
           userLogin(params)
             .then(res => {
@@ -101,7 +103,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  /* background: url(); */
+  background: url(../assets/bg.jpg) no-repeat center center;
   background-size: 100% 100%;
 }
 .form_container {
