@@ -1,10 +1,10 @@
 <!--
  * @Author: **
  * @Date: 2021-02-04 11:41:20
- * @LastEditTime: 2021-02-04 20:05:33
+ * @LastEditTime: 2021-02-06 17:28:01
  * @LastEditors: **
  * @Description: 
- * @FilePath: \fund-management\client\src\components\system\usermanage.vue
+ * @FilePath: \fund-management\client\src\components\system\UserManage.vue
 -->
 <template>
   <div class="usermanage">
@@ -40,7 +40,7 @@
       :visible.sync="roleDialog"
       width="380px"
       :before-close="handleClose">
-      <el-select v-model="roleSelected" placeholder="请选择">
+      <el-select v-model="roleSelected" :disabled="disabled" placeholder="请选择">
         <el-option
           v-for="item in roleSelect"
           :key="item.value"
@@ -102,6 +102,7 @@ export default {
         })
     },
     handleEdit(index, row) {
+      this.disabled = row.role === '管理员'
       this.roleDialog = true
       this.roleSelected = row.role
       this.userId = row.id

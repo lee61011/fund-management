@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-02-02 14:33:02
- * @LastEditTime: 2021-02-05 15:08:10
+ * @LastEditTime: 2021-02-06 16:09:01
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\views\Login.vue
@@ -110,8 +110,9 @@ export default {
   width: 370px;
   height: 210px;
   position: absolute;
-  top: 10%;
-  left: 34%;
+  top: 30%;
+  left: 50%;
+  transform: translate(-210px);
   padding: 25px;
   border-radius: 5px;
   text-align: center;

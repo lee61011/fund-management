@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-02-02 19:47:07
- * @LastEditTime: 2021-02-05 19:34:29
+ * @LastEditTime: 2021-02-06 17:21:58
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\views\InfoShow.vue
@@ -118,6 +118,7 @@ export default {
             .then(res => {
               if (res.data.code === 0) {
                 this.$message.success('密码修改成功！')
+                this.changePwdModal = false
               } else {
                 this.$message.error(res.data.message);
               }
