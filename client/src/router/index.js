@@ -12,6 +12,7 @@ import Index from '../views/Index.vue'
 import Home from '../views/Home.vue'
 import InfoShow from '../views/InfoShow.vue'
 import UserManage from '../components/system/UserManage.vue'
+import FlowManage from '../components/system/FlowManage.vue'
 import FundList from '../views/FundList.vue'
 import Register from '../views/Register.vue'  
 import Login from '../views/Login.vue'
@@ -38,6 +39,7 @@ const routes = [
       {path: '/home', name: 'home', component: Home},
       {path: '/infoshow', name: 'infoshow', component: InfoShow},
       {path: '/usermanage', name: 'usermanage', component: UserManage},
+      {path: '/flowmanage', name: 'flowmanage', component: FlowManage},
       {path: '/fundlist', name: 'fundlist', component: FundList}
     ]
   },
@@ -67,7 +69,6 @@ const router = new VueRouter({
 // 路由守卫
 router.beforeEach((to, from, next) => {
   const isLogin = sessionStorage.getItem('token') !== null
-  console.log('isLogin -------- ', isLogin, to.path, from)
   if (to.path === '/login' || to.path === '/register') {
     next()
   } else {

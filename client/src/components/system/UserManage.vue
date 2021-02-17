@@ -84,6 +84,7 @@ export default {
       ],
       roleSelected: '员工',
       roleDialog: false,
+      disabled: false,
       userId: ''
     }
   },

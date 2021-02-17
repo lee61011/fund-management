@@ -40,12 +40,12 @@ const UserSchema = new Schema({
 
 const User = mongoose.model('users', UserSchema)
 // 初始化系统管理员账号
-User.findOne({email: 'root@126.com'})
+User.findOne({email: 'admin@126.com'})
     .then((user) => {
       if (!user) {
         const newUser = new User({
-          name: 'root',
-          email: 'root@126.com',
+          name: 'admin',
+          email: 'admin@126.com',
           role: '管理员',
           // password: '123456'
           password: Crypto.encrypt(Crypto.encode(keys.initPwd))

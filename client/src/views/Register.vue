@@ -114,7 +114,7 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  /* background: url(); */
+  background: url(../assets/bg.jpg) no-repeat center center;
   background-size: 100% 100%;
 }
 .form_container {

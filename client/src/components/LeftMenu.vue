@@ -76,7 +76,7 @@ export default {
         name: '系统管理',
         path: 'system',
         children: [
-          {path: 'infoshow', name: '审批流程管理'},
+          {path: 'flowmanage', name: '审批流程管理'},
           {path: 'usermanage', name: '用户信息管理'}
         ]
       })
