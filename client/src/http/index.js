@@ -1,7 +1,7 @@
 /*
  * @Author: **
  * @Date: 2021-02-01 20:37:22
- * @LastEditTime: 2021-02-04 14:10:55
+ * @LastEditTime: 2021-02-21 19:06:28
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\http\index.js
@@ -10,8 +10,6 @@ import axios from 'axios'
 import router from '../router'
 
 axios.interceptors.request.use(function (config) {
-  // 在发送请求之前做些什么
-  // console.log('config', config)
   config.headers.Authorization = window.sessionStorage.getItem('token') || ''
   if (config.headers) { // 解决IE下请求缓存问题
     config.headers['Cache-Control'] = 'no-cache'
@@ -24,13 +22,10 @@ axios.interceptors.request.use(function (config) {
 })
 
 axios.interceptors.response.use(function (response) {
-  // Do something with response data
   return response
 }, function (error) {
-  // Do something with response error
   // 获取错误状态码
   const status = error.response.data.errno
-  // eslint-disable-next-line eqeqeq
   if (status == 6407) {
     // 判断 token 失效并跳转到登录页面
     sessionStorage.removeItem('token')

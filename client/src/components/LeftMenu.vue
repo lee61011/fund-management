@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-02-02 19:59:38
- * @LastEditTime: 2021-02-04 18:00:57
+ * @LastEditTime: 2021-02-21 17:31:17
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\components\LeftMenu.vue
@@ -17,7 +17,8 @@
         <router-link to="/home">
           <el-menu-item index="0">
             <i class="fa fa-margin fa-server"></i>
-            <span slot="首页"></span>
+            <!-- <span slot="首页"></span> -->
+            <span class="slot">首页</span>
           </el-menu-item>
           <template v-for="item in items">
             <el-submenu v-if="item.children" :index="item.path" :key="item.path">
@@ -47,10 +48,12 @@ export default {
       items: [
         {
           icon: 'fa-money',
-          name: '审批管理',
+          name: '单据管理',
           path: 'fund',
           children: [
-            {path: 'fundlist', name: '单据管理'}
+            {path: 'fundlist', name: '申请列表'},
+            {path: 'appropend', name: '待审批列表'},
+            {path: 'approoff', name: '已审批列表'},
           ]
         },
         {

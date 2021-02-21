@@ -1,10 +1,10 @@
 /*
  * @Author: **
  * @Date: 2021-01-24 13:53:24
- * @LastEditTime: 2021-01-31 15:35:39
+ * @LastEditTime: 2021-02-20 14:40:38
  * @LastEditors: **
  * @Description: 
- * @FilePath: \node-app\routes\api\profiles.js
+ * @FilePath: \fund-management\node-app\routes\api\profiles.js
  */
 const express = require('express')
 const router = express.Router()

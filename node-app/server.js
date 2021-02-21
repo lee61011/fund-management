@@ -1,7 +1,7 @@
 /*
  * @Author: **
  * @Date: 2021-01-23 16:27:20
- * @LastEditTime: 2021-02-05 11:05:07
+ * @LastEditTime: 2021-02-19 09:43:38
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\node-app\server.js
@@ -31,10 +31,6 @@ mongoose.connect(db, { useNewUrlParser: true })
 app.use(passport.initialize())
 require('./config/passport')(passport)
 
-// app.get('/', (req, res) => {
-//   res.end('hello world')
-// })
-
 // 使用Routes
 app.use('/api/users', users)
 app.use('/api/profiles', profiles)
@@ -42,7 +38,6 @@ app.use('/api/approve', approve)
 app.use('/api/flowdefined', flowdefined)
 
 const port = process.env.PORT || 5000
-
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`)
 })

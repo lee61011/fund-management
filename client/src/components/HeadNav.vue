@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-02-02 17:36:10
- * @LastEditTime: 2021-02-04 11:32:32
+ * @LastEditTime: 2021-02-21 15:21:39
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\components\HeadNav.vue
@@ -10,8 +10,8 @@
   <header class="head-nav">
     <el-row>
       <el-col :span="6" class="logo-container">
-        <img src="" class="logo" alt="">
-        <span class="title">xxxxx后台管理系统</span>
+        <img src="../assets/logo.png" class="logo" alt="">
+        <span class="title">报销管理系统</span>
       </el-col>
       <el-col :span="6" class="user-container">
         <div class="userinfo">
@@ -84,11 +84,12 @@ export default {
 .logo-container {
   line-height: 60px;
   min-width: 400px;
+  padding-left: 16px;
 }
 .logo {
-  height: 50px;
-  width: 50px;
-  margin-right: 5px;
+  height: 25px;
+  width: 175px;
+  margin-right: 15px;
   vertical-align: middle;
   display: inline-block;
 }
