@@ -1,7 +1,7 @@
 /*
  * @Author: **
  * @Date: 2021-01-31 16:05:21
- * @LastEditTime: 2021-02-21 17:37:11
+ * @LastEditTime: 2021-03-02 20:26:05
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\router\index.js
@@ -14,6 +14,8 @@ import InfoShow from '../views/InfoShow.vue'
 import UserManage from '../components/system/UserManage.vue'
 import FlowManage from '../components/system/FlowManage.vue'
 import FundList from '../views/FundList.vue'
+import FundCreate from '../views/FundCreate.vue'
+import FundSearch from '../views/FundSearch.vue'
 import ApproPend from '../views/ApproPend.vue'
 import ApproOff from '../views/ApproOff.vue'
 import Register from '../views/Register.vue'  
@@ -43,6 +45,8 @@ const routes = [
       {path: '/usermanage', name: 'usermanage', component: UserManage},
       {path: '/flowmanage', name: 'flowmanage', component: FlowManage},
       {path: '/fundlist', name: 'fundlist', component: FundList},
+      {path: '/fundcreate', name: 'fundcreate', component: FundCreate},
+      {path: '/fundsearch', name: 'fundsearch', component: FundSearch},
       {path: '/appropend', name: 'appropend', component: ApproPend},
       {path: '/approoff', name: 'approoff', component: ApproOff},
     ]

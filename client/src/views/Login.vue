@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-02-02 14:33:02
- * @LastEditTime: 2021-02-21 15:16:50
+ * @LastEditTime: 2021-03-06 18:49:21
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\views\Login.vue
@@ -16,7 +16,7 @@
             <el-input v-model="loginUser.email" placeholder="请输入邮箱"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
-            <el-input type="password" v-model="loginUser.password" placeholder="请输入密码"></el-input>
+            <el-input type="password" v-model="loginUser.password" @keyup.enter.native="submitForm('loginForm')" placeholder="请输入密码"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" class="submit_btn" @click="submitForm('loginForm')">登录</el-button>

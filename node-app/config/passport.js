@@ -1,10 +1,10 @@
 /*
  * @Author: **
  * @Date: 2021-01-27 19:28:32
- * @LastEditTime: 2021-01-31 13:22:48
+ * @LastEditTime: 2021-02-22 15:39:04
  * @LastEditors: **
  * @Description: 
- * @FilePath: \node-app\config\passport.js
+ * @FilePath: \fund-management\node-app\config\passport.js
  */
 const JwtStrategy = require('passport-jwt').Strategy,
   ExtractJwt = require('passport-jwt').ExtractJwt
@@ -19,7 +19,6 @@ module.exports = passport => {
   passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
     User.findById(jwt_payload.id)
       .then(user => {
-        console.log('passport_payload --------- ', jwt_payload)
         if (user) {
           return done(null, user)
         } else {

@@ -1,13 +1,14 @@
 <!--
  * @Author: **
  * @Date: 2021-02-04 20:13:09
- * @LastEditTime: 2021-02-21 18:05:17
+ * @LastEditTime: 2021-03-14 14:56:39
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\views\FundList.vue
 -->
 <template>
   <div class="fundmanage">
+    <div class="fundmanage-title">申请列表</div>
     <div class="btn-container">
       <el-date-picker
         v-model="value1"
@@ -64,7 +65,7 @@ export default {
   name: 'fundlist',
   components: {},
   created() {
-    this.getUserListFun()
+    // this.getUserListFun()
   },
   data() {
     const approStatusEnum = ['初始态','提交态','审批中','已驳回','已完成']
@@ -79,7 +80,7 @@ export default {
           money: '160',
           approStatus: '初始态',
           payStatus: '未支付',
-          approver: '史强'
+          approver: '-'
         },
         { 
           index: 2,
@@ -88,7 +89,7 @@ export default {
           id: '264X202011130741',
           money: '160',
           approStatus: '已完成',
-          payStatus: '未支付',
+          payStatus: '已支付',
           approver: '丁仪'
         },
         { 
@@ -99,7 +100,7 @@ export default {
           money: '160',
           approStatus: '初始态',
           payStatus: '未支付',
-          approver: '罗辑'
+          approver: '-'
         },
         { 
           index: 4,
@@ -180,9 +181,20 @@ export default {
   padding: 20px;
   /* background: skyblue; */
 }
+
+.fundmanage .fundmanage-title {
+  width: 100%;
+  text-align: center;
+  line-height: 40px;
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #606266;
+}
+
 .table-container {
   width: 100%;
-  height: calc(100% - 40px);
+  height: calc(100% - 100px);
 }
 .btn-container {
   margin-bottom: 10px;

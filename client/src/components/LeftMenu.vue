@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-02-02 19:59:38
- * @LastEditTime: 2021-02-21 17:31:17
+ * @LastEditTime: 2021-03-02 20:23:57
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\components\LeftMenu.vue
@@ -51,7 +51,9 @@ export default {
           name: '单据管理',
           path: 'fund',
           children: [
+            {path: 'fundcreate', name: '新建申请'},
             {path: 'fundlist', name: '申请列表'},
+            {path: 'fundsearch', name: '查看申请'},
             {path: 'appropend', name: '待审批列表'},
             {path: 'approoff', name: '已审批列表'},
           ]

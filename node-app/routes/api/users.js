@@ -1,7 +1,7 @@
 /*
  * @Author: **
  * @Date: 2021-01-24 13:53:24
- * @LastEditTime: 2021-02-04 14:23:51
+ * @LastEditTime: 2021-02-22 15:22:49
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\node-app\routes\api\users.js
@@ -23,7 +23,6 @@ const passport = require('passport')
   注册接口
 */
 router.post('/register', (req, res) => {
-  // console.log('req --- ', req.body)
   // 查询数据库中是否拥有该邮箱
   User.findOne({email: req.body.email})
     .then((user) => {
