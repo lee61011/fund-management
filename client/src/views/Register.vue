@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { userRegister } from '@/http/login/login'
+import { userRegister } from '@/http/api/login'
 import Crypto from '@/assets/utils/cryptoAES'
 
 export default {

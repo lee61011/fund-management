@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { putUserPass } from '@/http/login/login'
+import { putUserPass } from '@/http/api/login'
 import Crypto from '@/assets/utils/cryptoAES'
 
 export default {

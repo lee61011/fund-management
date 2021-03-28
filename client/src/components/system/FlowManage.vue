@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-02-04 11:41:20
- * @LastEditTime: 2021-03-14 19:31:06
+ * @LastEditTime: 2021-03-20 18:42:17
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\components\system\FlowManage.vue
@@ -9,24 +9,24 @@
 <template>
   <div class="flowmanage">
     <div class="btn-box">
-      <el-button icon="el-icon-document-add" @click="createFlowModal = true">新建流程</el-button>
+      <el-button icon="el-icon-document-add" @click="createBtnHandler">新建流程</el-button>
     </div>
     <!-- 用户列表 -->
     <div class="flow-definder-container">
-      <div class="flow-definder-item" v-for="item in flowList" :key="item.name">
+      <div class="flow-definder-item" v-for="item in flowListData" :key="item.id">
         <div class="flow-item-title">
           <span class="flow-name">{{ item.name }}</span>
           <span class="el-icon-edit" @click="flowEditBtnHandler"></span>
-          <span class="el-icon-delete" @click="flowDeleteBtnHandler"></span>
+          <span class="el-icon-delete" @click="flowDeleteBtnHandler(item.id)"></span>
         </div>
-        <flow-defined></flow-defined>
+        <flow-defined :flowStepList="flowStepList" :isEditFlow="item.isEditFlow"></flow-defined>
       </div>
     </div>
 
     <!-- 新建流程对话框 -->
     <!-- before-close="createFlowModal = false" -->
     <el-dialog
-      title="创建审批流程"
+      :title="CFModalTitle"
       :visible.sync="createFlowModal"
       width="800px">
       <!-- 费用明细列表表单 -->
@@ -45,9 +45,33 @@
 </template>
 
 <script>
-// import { getCurrent, getUserList, putUserRole } from '@/http/login/login'
+import { addFlow, flowList, deleteFlow } from '@/http/api/flow'
 
 import FlowDefined from './FlowDefined.vue'
+const steps = [
+  {
+    approvers: [],
+    stepName: '第一步',
+    stepNo: 1,
+    isApplicant: true
+  },
+  {
+    approvers: [{
+      userName: '章北海',
+      userId: '001'
+    }],
+    stepName: '第二步',
+    stepNo: 2
+  },
+  {
+    approvers: [{
+      userName: '史强',
+      userId: '002'
+    }],
+    stepName: '第三步',
+    stepNo: 3
+  }
+]
 export default {
   name: 'flowmanage',
   components: {
@@ -55,37 +79,13 @@ export default {
   },
   created() {
     // this.getUserListFun()
+    this.getFlowList()
   },
   data() {
     return {
-      // userTableData: [],
-      // tableColumns: [
-      //   {sortable: true, prop: 'name', label: '姓名'},
-      //   {sortable: true, prop: 'email', label: '邮箱'},
-      //   {sortable: true, prop: 'role', label: '角色'},
-      //   {sortable: true, prop: 'date', label: '创建时间'},
-      // ],
-      // resizable: true,
-      // roleSelect: [
-      //   { value: '管理员', label: '管理员' },
-      //   { value: '员工', label: '员工' },
-      //   { value: '财务', label: '财务' },
-      //   { value: '研发部管理', label: '研发部管理' },
-      //   { value: '测试部管理', label: '测试部管理' },
-      // ],
-      // roleSelected: '员工',
-      // roleDialog: false,
-      // disabled: false,
-      // userId: ''
-      flowList: [
-        {
-          name: '研发部审批流程',
-        },
-        {
-          name: '测试部审批流程',
-        },
-      ],
+      flowListData: [],
       createFlowModal: false,
+      CFModalTitle: '新建审批流程',
       flowForm: {
         name: ''
       },
@@ -93,7 +93,33 @@ export default {
         name: [
           { required: true, message: '请输入审批流程名称', trigger: 'blur' }
         ]
-      }
+      },
+      flowStepList: [
+        {
+          approvers: [],
+          stepName: '第一步',
+          stepNo: 1,
+          isApplicant: true
+        },
+        {
+          approvers: [
+            {
+              userName: '章北海',
+              userId: '001'
+            },
+            {
+              userName: '史强',
+              userId: '002'
+            },
+            {
+              userName: '丁仪',
+              userId: '003'
+            }
+          ],
+          stepName: '第二步',
+          stepNo: 2
+        }
+      ]
     }
   },
   methods: {
@@ -110,10 +136,43 @@ export default {
           }
         })
     },
+    getFlowList() {
+      flowList().then(res => {
+        res = res.data
+        if (res.code === 0 && res.data.length !== 0) {
+          this.flowListData = res.data.map(item => {
+            item.isEditFlow = true
+            item.steps = JSON.parse(item.steps)
+            return item
+          })
+        } else if (res.data.length === 0) {
+          this.flowListData = []
+        }
+      })
+      .catch(err => console.log(err))
+    },
+    createBtnHandler() {
+      this.createFlowModal = true
+      this.CFModalTitle = '新建审批流程'
+    },
     submitForm(formName){
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('新建审批流程成功');
+          const params = {
+            name: this.flowForm.name,
+            steps: JSON.stringify(steps),
+            stepnum: steps.length - 1
+          }
+          addFlow(params)
+            .then(res => {
+              if (res.data.code === 0) this.createFlowModal = false
+              this.getFlowList()
+              return this.$message({
+                type: res.data.code === 0 ? 'success' : 'error',
+                message: res.data.message
+              })
+            })
+            .catch(err => {})
         } else {
           console.log('error submit!!');
           return false;
@@ -126,19 +185,31 @@ export default {
     },
     flowEditBtnHandler() {
       console.log('编辑审批流程')
+      this.createFlowModal = true
+      this.CFModalTitle = '编辑审批流程'
     },
-    flowDeleteBtnHandler() {
+    flowDeleteBtnHandler(id) {
       this.$confirm('是否确认执行删除审批流程操作?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        // TODO SOMETHING
-        this.$message({
-          type: 'success',
-          message: '删除审批流程操作成功!'
-        });
-      }).catch(() => {});
+        deleteFlow(id)
+          .then(res => {
+            this.$message({
+              type: 'success',
+              message: '删除审批流程操作成功!'
+            })
+            this.getFlowList()
+          })
+          .catch(err => {
+            console.log(err)
+            this.$message({
+              type: 'error',
+              message: err.data
+            })
+          })
+      }).catch(err => {});
     }
   }
 }

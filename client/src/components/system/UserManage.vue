@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { getCurrent, getUserList, putUserRole } from '@/http/login/login'
+import { getCurrent, getUserList, putUserRole } from '@/http/api/login'
 
 export default {
   name: 'usermanage',

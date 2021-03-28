@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { userLogin } from '@/http/login/login.js'
+import { userLogin } from '@/http/api/login.js'
 import jwt_decode from 'jwt-decode'
 import Crypto from '@/assets/utils/cryptoAES'
 

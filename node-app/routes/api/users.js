@@ -1,7 +1,7 @@
 /*
  * @Author: **
  * @Date: 2021-01-24 13:53:24
- * @LastEditTime: 2021-02-22 15:22:49
+ * @LastEditTime: 2021-03-20 17:22:00
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\node-app\routes\api\users.js
@@ -140,6 +140,8 @@ router.get('/list', passport.authenticate('jwt', {session: false}), (req, res) =
         }))
       })
     })
+  // const users = await User.find()
+  // console.log('await 获取到的用户列表', users)
 })
 
 /*

@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-02-04 20:13:09
- * @LastEditTime: 2021-03-14 14:56:39
+ * @LastEditTime: 2021-03-18 14:05:55
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\views\FundList.vue
@@ -42,15 +42,14 @@
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
-            <el-button type="text" size="mini" @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+            <el-button type="text" size="mini" @click="handleView(scope.$index, scope.row)">查看</el-button>
             <template v-if="scope.row.approStatus === '初始态'">
               <el-button type="text" size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-              <el-button type="text" size="mini" @click="handleEdit(scope.$index, scope.row)">删除</el-button>
+              <el-button type="text" size="mini" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
             </template>
             <template v-if="scope.row.approStatus === '已驳回'">
-              <el-button type="text" size="mini" @click="handleEdit(scope.$index, scope.row)">重新申请</el-button>
+              <el-button type="text" size="mini" @click="handleReapply(scope.$index, scope.row)">重新申请</el-button>
             </template>
-            <!-- <el-button size="mini" @click="userId = scope.row.id">编辑角色</el-button> -->
           </template>
         </el-table-column>
       </el-table>
@@ -59,7 +58,7 @@
 </template>
 
 <script>
-import { getCurrent, getUserList, putUserRole } from '@/http/login/login'
+import { getCurrent, getUserList, putUserRole } from '@/http/api/login'
 
 export default {
   name: 'fundlist',
@@ -148,6 +147,12 @@ export default {
       this.roleSelected = row.role
       this.userId = row.id
     },
+    // 重新申请
+    handleReapply() {},
+    // 查看
+    handleView() {},
+    // 删除
+    handleDelete() {},
     saveRoleHandler() {
       const params = {
         id: this.userId,

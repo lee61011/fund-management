@@ -1,7 +1,7 @@
 /*
  * @Author: **
  * @Date: 2021-01-23 16:27:20
- * @LastEditTime: 2021-02-19 09:43:38
+ * @LastEditTime: 2021-03-17 19:28:58
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\node-app\server.js
@@ -16,6 +16,7 @@ const users = require('./routes/api/users')
 const profiles = require('./routes/api/profiles')
 const approve = require('./routes/api/approve')
 const flowdefined = require('./routes/api/flowdefined')
+const receipt = require('./routes/api/receipt')
 
 const db = require('./config/keys').mongoURI
 
@@ -36,6 +37,7 @@ app.use('/api/users', users)
 app.use('/api/profiles', profiles)
 app.use('/api/approve', approve)
 app.use('/api/flowdefined', flowdefined)
+app.use('/api/receipt', receipt)
 
 const port = process.env.PORT || 5000
 app.listen(port, () => {

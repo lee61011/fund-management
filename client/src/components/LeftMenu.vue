@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-02-02 19:59:38
- * @LastEditTime: 2021-03-02 20:23:57
+ * @LastEditTime: 2021-03-18 14:14:10
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\components\LeftMenu.vue
@@ -17,7 +17,6 @@
         <router-link to="/home">
           <el-menu-item index="0">
             <i class="fa fa-margin fa-server"></i>
-            <!-- <span slot="首页"></span> -->
             <span class="slot">首页</span>
           </el-menu-item>
           <template v-for="item in items">

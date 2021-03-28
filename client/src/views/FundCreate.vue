@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-03-02 20:14:08
- * @LastEditTime: 2021-03-14 15:42:15
+ * @LastEditTime: 2021-03-25 10:48:47
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\views\FundCreate.vue
@@ -81,8 +81,8 @@
       </el-form>
       
       <div class="button-box">
-        <el-button size="medium" type="primary" @click="roleDialog = true">保存</el-button>
-        <el-button size="medium" type="primary" @click="roleDialog = true">提交</el-button>
+        <el-button size="medium" type="primary" @click="saveFund('createForm')">保存</el-button>
+        <el-button size="medium" type="primary" @click="submitBtnHandler('createForm')">提交</el-button>
         <el-button size="medium" @click="roleDialog = true">取消</el-button>
       </div>
     </div>
@@ -171,6 +171,7 @@
 </template>
 
 <script>
+import { createFund, editFund } from '@/http/api/fund'
 
 export default {
   name: 'fundcreate',
@@ -180,12 +181,14 @@ export default {
   data() {
     return {
       createForm: {
+        id: '11',
         proposer: '', // 申请人
         dealType: '', // 交易类型
-        date: '', // 日期
-        money: '', // 报销金额
-        payStatus: '', // 支付状态
+        // date: '', // 日期
+        money: '725.5', // 报销金额
+        // payStatus: '', // 支付状态
         orgName: '', // 财务组织
+        approveFlow: '', // 审批流程
         account: '', // 收款账户
         openingBank: '', // 开户行
         payType: '', // 支付方式
@@ -317,6 +320,75 @@ export default {
     }
   },
   methods: {
+    // 保存申请单操作
+    async saveFund() {
+      const params = {
+        proposer: this.createForm.proposer, // 申请人
+        dealType: this.createForm.dealType, // 交易类型
+        payType: this.createForm.payType, // 支付方式
+        money: this.createForm.money, // 金额
+        financeDep: this.createForm.orgName, // 财务组织
+        flowId: this.createForm.approveFlow, // 审批流程
+        account: this.createForm.account, // 收款账户
+        openingBank: this.createForm.openingBank, // 开户行
+        goal: this.createForm.goal, // 目的
+        proposerd: this.createForm.proposerd, // 申请人所属部门
+        bearFeesP: this.createForm.bearFeesP, // 费用承担部门
+
+        costDetailList: JSON.stringify(this.detailTableData), // 费用明细列表 
+        approStatus: '初始态', // 单据状态
+      }
+      // if (this.createForm.hasOwnProperty('id')) {
+      //   // TODO 编辑操作
+      //   editFund(id, params)
+      //     .then(res => {
+
+      //     })
+      //   return
+      // }
+      // createFund(params)
+      //   .then(res => {
+      //     if (res.data.code === 1) {
+      //       return this.$message({
+      //         type: 'error',
+      //         message: res.data.message
+      //       })
+      //     }
+      //     this.$message({
+      //       type: 'success',
+      //       message: '单据保存成功！'
+      //     })
+      //   }).catch(err => {
+          
+      //   });
+      try {
+        const res = this.createForm.hasOwnProperty('id') ?
+              await editFund(this.createForm.id, params) :
+              await createFund(params)
+        if (res.data.code === 1) {
+          return this.$message({
+            type: 'error',
+            message: res.data.message
+          })
+        }
+        this.$message({
+          type: 'success',
+          message: '单据保存成功！'
+        })
+      } catch(err) {
+        console.log(err)
+      }
+    },
+    // 提交申请单操作
+    submitBtnHandler(formName) {
+      this.$refs[formName].validate((valid) => { // 新建单据表单校验
+        if (valid) {
+          // let 
+        } else {
+          return false;
+        }
+      })
+    },
     addBtnHandler() {
       console.log('添加行')
       this.detailModalTitle = '添加行'

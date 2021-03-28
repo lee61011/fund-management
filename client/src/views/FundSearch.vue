@@ -1,7 +1,7 @@
 <!--
  * @Author: **
  * @Date: 2021-03-02 20:19:14
- * @LastEditTime: 2021-03-14 17:56:17
+ * @LastEditTime: 2021-03-28 11:53:24
  * @LastEditors: **
  * @Description: 
  * @FilePath: \fund-management\client\src\views\FundSearch.vue
@@ -113,14 +113,21 @@
         </div>
       </div>
     </template>
+    <div class="flow-box-container">
+      审批进度
+      <flow-defined :flowStepList="flowStepList"></flow-defined>
+    </div>
   </div>
 </template>
 
 <script>
+import FlowDefined from  '@/components/system/FlowDefined.vue'
 
 export default {
   name: 'fundsearch',
-  components: {},
+  components: {
+    FlowDefined
+  },
   created() {
     this.searchTitle = '报销单审批'
   },
@@ -210,31 +217,74 @@ export default {
         approvalOpinion: [
           { required: true, message: '请输入审批意见', trigger: 'blur' }
         ]
-      }
+      },
+      flowStepList: [
+        {
+          approvers: [
+            {
+              userName: '张三',
+              userId: '000',
+              disabled: true,
+            }
+          ],
+          stepName: '第一步',
+          stepNo: 1
+        },
+        {
+          approvers: [
+            {
+              userName: '史强',
+              userId: '001',
+              type: 'success'
+            }
+          ],
+          stepName: '第二步',
+          stepNo: 2
+        },
+        {
+          approvers: [
+            {
+              userName: '章北海',
+              userId: '003',
+              disabled: true,
+              type: 'info'
+            },
+            {
+              userName: '丁仪',
+              userId: '004',
+              disabled: true,
+              type: 'info'
+            }
+          ],
+          stepName: '第三步',
+          stepNo: 3
+        }
+      ]
     }
   },
   methods: {
     // 同意操作
     consentBtnHandler(formName) {
-      // 审批意见表单校验
-      this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this.$confirm('是否确认执行同意审批操作?', '提示', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
-              type: 'warning'
-            }).then(() => {
-              // TODO SOMETHING
-              this.$message({
-                type: 'success',
-                message: '同意审批操作成功!'
-              });
-            }).catch(() => {});
-          } else {
-            console.log('error submit!!');
-            return false;
+      this.$refs[formName].validate((valid) => { // 审批意见表单校验
+        if (!valid) return false;
+        this.$confirm('是否确认执行同意审批操作?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(async () => {
+          const params = {
+            id: this.searchForm.receiptId,
+            opinion: this.examinesForm.approvalOpinion
           }
-        })
+          const res = awaitpostExamine(params)
+          if (res.code === 0) {
+            this.$message({
+              type: 'success',
+              message: '同意审批操作成功!'
+            })
+          }
+        }).catch(() => {});
+      })
     },
     // 关闭操作
     closeBtnHandler() {
@@ -304,7 +354,8 @@ export default {
 
 .fundsearch .funddetail {
   width: 100%;
-  height: calc(100% - 650px);
+  /* height: calc(100% - 650px); */
+  height: calc(100% - 720px);
   padding-top: 30px;
   margin-bottom: 60px;
 }
@@ -339,5 +390,10 @@ export default {
   margin-bottom: 10px;
   display: flex;
   justify-content: space-around;
+}
+
+/* 审批进度展示 */
+.fundsearch .flow-box-container {
+  margin-top: 20px;
 }
 </style>
